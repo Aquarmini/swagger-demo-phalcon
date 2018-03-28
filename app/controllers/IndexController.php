@@ -8,34 +8,13 @@
 // +----------------------------------------------------------------------
 namespace App\Controllers;
 
-use App\Common\Enums\ErrorCode;
-use App\Common\Exceptions\BizException;
-use App\Core\System;
-use App\Utils\Response;
+use App\Controllers\Actions\Index\Exception;
+use App\Controllers\Actions\Index\Index;
 
 class IndexController extends Controller
 {
-    /**
-     * @desc
-     * @author limx
-     * @return bool|\Phalcon\Mvc\View
-     * @Middleware('auth')
-     */
-    public function indexAction()
-    {
-        if ($this->request->isPost()) {
-            $message = di('configCenter')->get('msg')->welcome;
-            return Response::success([
-                'version' => System::getInstance()->version(),
-                'message' => $message,
-            ]);
-        }
-        $this->view->version = System::getInstance()->version();
-        return $this->view->render('index', 'index');
-    }
-
-    public function exceptionAction()
-    {
-        throw new BizException(ErrorCode::$ENUM_SYSTEM_ERROR);
-    }
+    /** 首页 */
+    use Index;
+    /** 异常接口 */
+    use Exception;
 }
