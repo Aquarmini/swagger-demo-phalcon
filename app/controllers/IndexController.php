@@ -15,6 +15,7 @@ class IndexController extends Controller
 {
     /** 首页 */
     use Index;
+    
     /** 异常接口 */
     use Exception;
 }
